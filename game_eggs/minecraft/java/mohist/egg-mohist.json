@@ -4,7 +4,7 @@
         "version": "PTDL_v2",
         "update_url": null
     },
-    "exported_at": "2023-08-13T19:49:14+02:00",
+    "exported_at": "2024-09-28T18:49:55-03:00",
     "name": "Mohist",
     "author": "alex.chang-lam@protonmail.com",
     "description": "Spigot fork with performance optimizations.",
@@ -14,11 +14,12 @@
         "pid_limit"
     ],
     "docker_images": {
-        "Java 17": "ghcr.io\/pterodactyl\/yolks:java_17",
-        "Java 16": "ghcr.io\/pterodactyl\/yolks:java_16",
-        "Java 11": "ghcr.io\/pterodactyl\/yolks:java_11",
-        "Java 8": "ghcr.io\/pterodactyl\/yolks:java_8",
-        "Java 18": "ghcr.io\/pterodactyl\/yolks:java_18"
+        "Java 8": "ghcr.io\/parkervcp\/yolks:java_8",
+        "Java 11": "ghcr.io\/parkervcp\/yolks:java_11",
+        "Java 16": "ghcr.io\/parkervcp\/yolks:java_16",
+        "Java 17": "ghcr.io\/parkervcp\/yolks:java_17",
+        "Java 19": "ghcr.io\/parkervcp\/yolks:java_19",
+        "Java 21": "ghcr.io\/parkervcp\/yolks:java_21"
     },
     "file_denylist": [],
     "startup": "java -Xms128M -XX:MaxRAMPercentage=95.0 -Dterminal.jline=false -Dterminal.ansi=true -jar {{SERVER_JARFILE}}",
@@ -30,7 +31,7 @@
     },
     "scripts": {
         "installation": {
-            "script": "#!\/bin\/bash\r\n# Mohist Installation Script\r\n#\r\n# Server Files: \/mnt\/server\r\napt update\r\napt -y install curl\r\n\r\n#Go into main direction\r\nif [ ! -d \/mnt\/server ]; then\r\n    mkdir -p \/mnt\/server\r\nfi\r\n\r\ncd \/mnt\/server\r\n\r\nif [ ! -z ${BUILD_VERSION} ]; then\r\n    DOWNLOAD_LINK=https:\/\/mohistmc.com\/api\/${MC_VERSION}\/${BUILD_VERSION}\/download\r\nelse\r\n    DOWNLOAD_LINK=https:\/\/mohistmc.com\/api\/${MC_VERSION}\/latest\/download\r\nfi\r\n\r\n#Downloading jars\r\necho -e \"Download link is ${DOWNLOAD_LINK}\"\r\necho -e \"Downloading build version ${BUILD_VERSION}\"\r\n\r\ncurl -sSL -o ${SERVER_JARFILE} ${DOWNLOAD_LINK}\r\n\r\n#Checking if downloaded jars exist\r\nif [ ! -f .\/${SERVER_JARFILE} ]; then\r\n    echo \"!!! Error downloading build version ${BUILD_VERSION} !!!\"\r\n    exit\r\nfi\r\n\r\n## install end\r\necho \"-----------------------------------------\"\r\necho \"Installation completed...\"\r\necho \"-----------------------------------------\"",
+            "script": "#!\/bin\/bash\r\n# Mohist Installation Script\r\n#\r\n# Server Files: \/mnt\/server\r\napt update\r\napt -y install curl\r\n\r\n#Go into main direction\r\nif [ ! -d \/mnt\/server ]; then\r\n    mkdir -p \/mnt\/server\r\nfi\r\n\r\ncd \/mnt\/server\r\n\r\nif [ ! -z ${BUILD_VERSION} ]; then\r\n    DOWNLOAD_LINK=https:\/\/mohistmc.com\/api\/v2\/sources\/jenkins\/Mohist-${MC_VERSION}\/builds\/${BUILD_VERSION}\/download\r\nelse\r\n    DOWNLOAD_LINK=https:\/\/mohistmc.com\/api\/v2\/sources\/jenkins\/Mohist-${MC_VERSION}\/builds\/latest\/download\r\nfi\r\n\r\n#Downloading jars\r\necho -e \"Download link is ${DOWNLOAD_LINK}\"\r\necho -e \"Downloading build version ${BUILD_VERSION}\"\r\n\r\ncurl -sSL -o ${SERVER_JARFILE} ${DOWNLOAD_LINK}\r\n\r\n#Checking if downloaded jars exist\r\nif [ ! -f .\/${SERVER_JARFILE} ]; then\r\n    echo \"!!! Error downloading build version ${BUILD_VERSION} !!!\"\r\n    exit\r\nfi\r\n\r\n## install end\r\necho \"-----------------------------------------\"\r\necho \"Installation completed...\"\r\necho \"-----------------------------------------\"",
             "container": "ghcr.io\/parkervcp\/installers:debian",
             "entrypoint": "bash"
         }
